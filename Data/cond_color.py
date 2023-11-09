@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
+import numpy as np
 
 black_c = lambda c: LinearSegmentedColormap.from_list('BlkGrn', [(0, 0, 0), c], N=256)
 
