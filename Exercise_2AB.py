@@ -51,8 +51,8 @@ for i, values in enumerate(new_normal):
 
 # Plot the normaLised firing rates for all neurons under condition 1 DEBUG
 fig, ax = plt.subplots()
-for i in range(182):
-    ax.plot(times, normalised_firing_rates[i][0], label=f'Neuron {i+1}: Condition 1')
+for i in range(108):
+    ax.plot(times, normalised_firing_rates[0][i], label=f'Neuron {i+1}: Condition 1')
 ax.set_xlabel('Time (ms)')
 ax.set_ylabel('Firing rate (Hz)')
 ax.set_title('Normalized PSTHs')

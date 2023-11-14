@@ -28,9 +28,12 @@ eigenvalues = eigenvalues[idx]
 eigenvectors = eigenvectors[:, idx]
 eigenvectors = eigenvectors[:, idx]
 
+# normalize the eigenvectors
+eigenvectors = eigenvectors / LA.norm(eigenvectors, axis=0)
+
 # find V_m 
-V_m = eigenvectors[:12].T
-print(f"V_m shape: {V_m.shape}")
+V_m = eigenvectors[:, :12]
+print(f"V_m: {V_m}")
 
 # print the columns of V_m
 # print(f"V_m: {V_m[:, 0]}")
@@ -38,26 +41,10 @@ print(f"V_m shape: {V_m.shape}")
 #find the projection of the neurons onto the first 12 eigenvectors
 Z = V_m.T @ X
 print(f"X_proj shape: {Z.shape}")
+print(f"Z: {Z}")
 Z = Z.reshape(12, 108, 46)
 print(f"X_proj shape: {Z.shape}")
-
-# Generate the colors for the neurons
-colors = Data.cond_color.get_colors(Z[0,:, 0], Z[1, :, 0], alt_colors=True)
-
-
-# Plot the projection of the neurons onto the first 2 eigenvectors. Connect the points
-# corresponding to the same condition with a line. Use the colors generated above.
-fig, ax = plt.subplots()
-for i in range(108):
-    ax.plot(Z[0, i, :], Z[1, i, :], color=colors[i])
-ax.set_xlabel("First eigenvector")
-ax.set_ylabel("Second eigenvector")
-ax.set_title("Projection of the neurons onto the first 2 eigenvectors")
-
-# add start and end points
-Data.cond_color.plot_start(Z[0, :, 0], Z[1, :, 0], colors, ax=ax, markersize=100)
-Data.cond_color.plot_end(Z[0, :, -1], Z[1, :, -1], colors, ax=ax, markersize=20)
-plt.show()
+print(f"Z: {Z[:, 0, 0]}")
 
 # Save Z and V to a pyz file
-np.savez('Data/Exercise_2C.npz', Z=Z, V=V_m)
+np.savez('Data/Exercise_2C.npz', Z=Z, V=V_m, times = time[mask])
