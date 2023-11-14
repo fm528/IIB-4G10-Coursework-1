@@ -1,8 +1,14 @@
+"""
+This module contains functions to find colors for different conditions and plot the starting and ending points of trajectories.
+"""
+
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 import numpy as np
 
-black_c = lambda c: LinearSegmentedColormap.from_list('BlkGrn', [(0, 0, 0), c], N=256)
+def black_c(c):
+    """Create a black colormap with a given color pole."""
+    return LinearSegmentedColormap.from_list("BlkGrn", [(0, 0, 0), c], N=256)
 
 
 def get_colors(xs, ys, alt_colors=False):
@@ -17,10 +23,12 @@ def get_colors(xs, ys, alt_colors=False):
     small values are closer to black, large positive values closer to red, and large negative values closer to green.
     The elements of "colors" can be passed as the optional "color" or "c" input argument to Matplotlib plotting functions.
     """
+    def normalize(x):
+        return 2 * (x - x.min()) / (x.max() - x.min()) - 1
+
     xys = np.array([xs, ys])
     u, _, _ = np.linalg.svd(xys)
-    normalize = lambda x: 2 * (x - x.min()) / (x.max() - x.min()) - 1
-    xs = normalize(u[:,0].T @ xys)
+    xs = normalize(u[:, 0].T @ xys)
     if alt_colors:
         pos_cmap = black_c((1, 0, 1))
         neg_cmap = black_c((0, 1, 1))
@@ -66,5 +74,3 @@ def plot_end(xs, ys, colors, markersize=100, ax=None):
         plt.scatter(xs, ys, s=markersize, color=colors, marker="D", edgecolors="k")
     else:
         ax.scatter(xs, ys, s=markersize, color=colors, marker="D", edgecolors="k")
-
-

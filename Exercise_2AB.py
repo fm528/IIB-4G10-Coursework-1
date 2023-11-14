@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Load the firing rates data
-data = np.load('Data\psths.npz')
+data = np.load('Data/psths.npz')
 firing_rates = data['X']
 times = data['times']
 
@@ -37,13 +37,13 @@ plt.show()
 # print(normalised_firing_rates[67])
 # Remove from X the cross-condition mean firing rate for each neuron and time PART B
 
-mean = normalised_firing_rates.mean(axis=(1))
+mu = normalised_firing_rates.mean(axis=(1))
 # print(f"mean: {mean.shape}")
 # print(f"normalised Firing Rates: {normalised_firing_rates.shape}")
 new_normal = np.moveaxis(normalised_firing_rates, 1, 0)
 # print(f"normalised Firing Rates: {new_normal.shape}")
 for i, values in enumerate(new_normal):
-    new_normal[i] = values - mean
+    new_normal[i] = values - mu
 # normalised_firing_rates = np.moveaxis(new_normal, 0, 1)
 # print(f"normalised Firing Rates: {normalised_firing_rates.shape}")
 # print(normalised_firing_rates[67])
@@ -59,5 +59,4 @@ ax.set_title('Normalized PSTHs')
 plt.show()
 
 #save the normalised data in  'Data\psths_norm.npz'
-np.savez('Data\psths_norm.npz', X=normalised_firing_rates, times=times)
-
+np.savez('Data/psths_norm.npz', X=normalised_firing_rates, times=times)
