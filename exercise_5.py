@@ -26,7 +26,7 @@ def find_Z_proj(Z, i, time):
             axis=1,
         )
     ).T
-    print(f"P: {P}")
+    
 
     # project z onto p and plot
     # print(f"Z: {Z.shape}", f"P: {P.shape}")
