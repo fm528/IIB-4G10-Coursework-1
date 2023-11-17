@@ -37,14 +37,14 @@ plt.show()
 # print(normalised_firing_rates[67])
 # Remove from X the cross-condition mean firing rate for each neuron and time PART B
 
-mu = normalised_firing_rates.mean(axis=(1))
+mu = np.mean(normalised_firing_rates, axis=1)
 # print(f"mean: {mean.shape}")
 # print(f"normalised Firing Rates: {normalised_firing_rates.shape}")
 new_normal = np.moveaxis(normalised_firing_rates, 1, 0)
 # print(f"normalised Firing Rates: {new_normal.shape}")
 for i, values in enumerate(new_normal):
     new_normal[i] = values - mu
-# normalised_firing_rates = np.moveaxis(new_normal, 0, 1)
+normalised_firing_rates = np.moveaxis(new_normal, 0, 1)
 # print(f"normalised Firing Rates: {normalised_firing_rates.shape}")
 # print(normalised_firing_rates[67])
 
