@@ -58,14 +58,13 @@ def A_matrix(Z):
 
 def main():
     # Load the data from the .pyz file
-    data = np.load("Data/test.npz")
-    Z = data["Z_test"]
-    A_test = data["A_test"]
+    data = np.load("Data/Exercise_2C.npz")
+    Z = data["Z"]
     A = A_matrix(Z)
 
     # calculate the error between the A matrix and the A_test matrix
-    error = LA.norm(A - A_test)
-    print(f"Error: {error}")
+    # error = LA.norm(A - A_test)
+    # print(f"Error: {error}")
 
     # Plot A as a color map
     fig, ax = plt.subplots()
@@ -75,6 +74,33 @@ def main():
     ax.set_title("A matrix")
     fig.colorbar(im)
     plt.show()
+    fig, ax = plt.subplots()
+
+# # Plot the matrix elements using imshow and absolute values
+#     cax = ax.imshow(np.abs(A), cmap='RdBu', interpolation='none', origin='upper')
+#     size = A.shape[0]
+
+#     # Add arrows to indicate the sign of the elements
+#     for i in range(size):
+#         for j in range(size):
+#             if A[i, j] < 0:
+#                 ax.arrow(j, i, 0.0, 0.1, head_width=0.1, head_length=0.1, fc='black', ec='black')
+#             elif A[i, j] > 0:
+#                 ax.arrow(j, i, 0.0, -0.1, head_width=0.1, head_length=0.1, fc='black', ec='black')
+
+#     # Add a colorbar
+#     cbar = fig.colorbar(cax, ax=ax, label='Absolute Value')
+
+#     # Set axis labels and title
+#     ax.set_xticks(np.arange(size))
+#     ax.set_yticks(np.arange(size))
+#     ax.set_xticklabels(np.arange(1, size + 1))
+#     ax.set_yticklabels(np.arange(1, size + 1))
+#     ax.set_xlabel('Column')
+#     ax.set_ylabel('Row')
+#     ax.set_title('Antisymmetric Matrix Visualization')
+
+#     plt.show()
 
 if __name__ == "__main__":
     main()

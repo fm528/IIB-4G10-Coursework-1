@@ -46,7 +46,7 @@ def get_colors(xs, ys, alt_colors=False):
     return colors
 
 
-def plot_start(xs, ys, colors, markersize=500, ax=None):
+def plot_start(xs, ys, colors, markersize=500, ax=None, label=0):
     """
     Puts round markers on the starting point of trajectories
     :param xs: x-coordinates of the initial point of trajectories
@@ -56,12 +56,12 @@ def plot_start(xs, ys, colors, markersize=500, ax=None):
     :param ax: axis on which to plot (optional)
     """
     if ax is None:
-        plt.scatter(xs, ys, s=markersize, color=colors, marker=".", edgecolors="k")
+        plt.scatter(xs, ys, s=markersize, color=colors, marker=".", edgecolors="k", label= "Start" if label == 1 else None)
     else:
-        ax.scatter(xs, ys, s=markersize, color=colors, marker=".", edgecolors="k")
+        ax.scatter(xs, ys, s=markersize, color=colors, marker=".", edgecolors="k", label= "Start" if label == 1 else None)
 
 
-def plot_end(xs, ys, colors, markersize=100, ax=None):
+def plot_end(xs, ys, colors, markersize=100, ax=None, label = 0):
     """
     Puts diamond-shaped markers on the end point of trajectories
     :param xs: x-coordinates of the final point of trajectories
@@ -71,6 +71,6 @@ def plot_end(xs, ys, colors, markersize=100, ax=None):
     :param ax: axis on which to plot (optional)
     """
     if ax is None:
-        plt.scatter(xs, ys, s=markersize, color=colors, marker="D", edgecolors="k")
+        plt.scatter(xs, ys, s=markersize, color=colors, marker="D", edgecolors="k", label= "End" if label == 1 else None)
     else:
-        ax.scatter(xs, ys, s=markersize, color=colors, marker="D", edgecolors="k")
+        ax.scatter(xs, ys, s=markersize, color=colors, marker="D", edgecolors="k", label= "End" if label == 1 else None)

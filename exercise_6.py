@@ -31,7 +31,7 @@ def main():
     Z_proj = P @ Z_n
     Z_proj = Z_proj.reshape(2, X_shape[1], X_shape[2])
 
-    colors = cc.get_colors(Z_proj[0, :, 0], Z_proj[1, :, 0], alt_colors=1)
+    colors = cc.get_colors(Z_proj[0, :, -1], Z_proj[1, :, -1], alt_colors=1)
 
 # Plot the trajectories for all conditions in the same plot
     fig, ax = plt.subplots()
@@ -39,20 +39,18 @@ def main():
         ax.plot(Z_proj[0, i, :], Z_proj[1, i, :], color=colors[i])
         cc.plot_start(Z_proj[0, i, 0], Z_proj[1, i, 0], colors[i], ax=ax, markersize=15)
         cc.plot_end(Z_proj[0, i, -1], Z_proj[1, i, -1], colors[i], ax=ax, markersize=10)
-    ax.set_xlabel("PC1")
-    ax.set_ylabel("PC2")
-    ax.set_title("Trajectories in the PC1-PC2 plane")
+    
 
     colors = cc.get_colors(Z[0, :, 0], Z[1, :, 0])
 
 # Plot the trajectories for all conditions in the same plot
     for i in range(108):
-        ax.plot(Z[0, i, :], Z[1, i, :], color=colors[i])
-        cc.plot_start(Z[0, i, 0], Z[1, i, 0], colors[i], ax=ax, markersize=15)
+        ax.plot(Z[0, i, :], Z[1, i, :], color=colors[i], alpha = 0.25)
+        # cc.plot_start(Z[0, i, 0], Z[1, i, 0], colors[i], ax=ax, markersize=15)
         cc.plot_end(Z[0, i, -1], Z[1, i, -1], colors[i], ax=ax, markersize=10)
-    ax.set_xlabel("PC1")
-    ax.set_ylabel("PC2")
-    ax.set_title("Trajectories in the PC1-PC2 plane")
+    ax.set_xlabel("real")
+    ax.set_ylabel("imag")
+    ax.set_title("Plane of fastest rotation")
     plt.show()
 
 if __name__ == "__main__":

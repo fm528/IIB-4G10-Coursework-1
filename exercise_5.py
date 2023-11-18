@@ -43,18 +43,23 @@ def find_Z_proj(Z, i, time):
     return Z_proj, P
 
 
-def plot_trajectory(Z_proj, alt = False):
+def plot_trajectory(Z_proj, title, alt = False):
     colors = cc.get_colors(Z_proj[0, :, 0], Z_proj[1, :, 0], alt_colors=alt)
 
     # Plot the trajectories for all conditions in the same plot
     fig, ax = plt.subplots()
     for i in range(108):
         ax.plot(Z_proj[0, i, :], Z_proj[1, i, :], color=colors[i])
-        cc.plot_start(Z_proj[0, i, 0], Z_proj[1, i, 0], colors[i], ax=ax, markersize=15)
-        cc.plot_end(Z_proj[0, i, -1], Z_proj[1, i, -1], colors[i], ax=ax, markersize=10)
-    ax.set_xlabel("PC1")
-    ax.set_ylabel("PC2")
-    ax.set_title("Trajectories in the PC1-PC2 plane")
+        if i == 0:  # add labels only for the first plot to avoid duplicate legend entries
+            cc.plot_start(Z_proj[0, i, 0], Z_proj[1, i, 0], colors[i], ax=ax, markersize=20, label=1)
+            cc.plot_end(Z_proj[0, i, -1], Z_proj[1, i, -1], colors[i], ax=ax, markersize=10, label=1)
+        else:
+            cc.plot_start(Z_proj[0, i, 0], Z_proj[1, i, 0], colors[i], ax=ax, markersize=20)
+            cc.plot_end(Z_proj[0, i, -1], Z_proj[1, i, -1], colors[i], ax=ax, markersize=10)
+    ax.set_xlabel("real")
+    ax.set_ylabel("imag")
+    ax.set_title(title)
+    plt.legend()  # add a legend
     plt.show()
 
 
@@ -67,15 +72,15 @@ def main():
     # plot the trajectories on the first FR plane
     Z_1, P_fr= find_Z_proj(Z, 0, time)
     print(f"Z_1: {Z_1.shape}")
-    plot_trajectory(Z_1)
+    plot_trajectory(Z_1, "Plane of 1st FR")
 
     # plot the trajectories on the second FR plane
     Z_2 , _= find_Z_proj(Z, 1, time)
-    plot_trajectory(Z_2)
+    plot_trajectory(Z_2, "Plane of 2nd FR")
 
     # plot the trajectories on the third FR plane
     Z_3, _ = find_Z_proj(Z, 2, time)
-    plot_trajectory(Z_3)
+    plot_trajectory(Z_3, "Plane of 3rd FR")
 
     np.savez('Data/exercise_5.npz', P = P_fr, Z_1 = Z_1, Z_2 = Z_2, Z_3 = Z_3)
 
