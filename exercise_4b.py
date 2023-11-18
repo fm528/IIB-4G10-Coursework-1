@@ -3,11 +3,7 @@ This module contains code to maximize the log likelihood function by changing pa
 """
 
 import numpy as np
-from numpy import linalg as LA
 import matplotlib.pyplot as plt
-import Data.cond_color as cc
-
-
 
 
 def H_generator(M):
@@ -27,9 +23,6 @@ def H_generator(M):
             H[a - 1][indexer][i] = -1
             a += 1
     return H
-
-
-
 
 
 def A_matrix(Z):
@@ -52,9 +45,10 @@ def A_matrix(Z):
     Q = np.tensordot(W, W, axes=([1, 2], [1, 2]))
 
     Beta = np.linalg.solve(Q, b)
-    
+
     A = np.tensordot(Beta, H, axes=1)
     return A
+
 
 def main():
     # Load the data from the .pyz file
@@ -75,6 +69,7 @@ def main():
     fig.colorbar(im)
     plt.show()
     fig, ax = plt.subplots()
+
 
 # # Plot the matrix elements using imshow and absolute values
 #     cax = ax.imshow(np.abs(A), cmap='RdBu', interpolation='none', origin='upper')
