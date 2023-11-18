@@ -35,4 +35,4 @@ Z, V_m = exercise_2C.find_V_m(X)
 
 Z_proj, P = exercise_5.find_Z_proj(Z, 0, time)
 
-exercise_5.plot_trajectory(Z_proj)
+exercise_5.plot_trajectory(Z_proj, "Plane of 1st FR Distorted Data")

@@ -72,17 +72,17 @@ def main():
     # plot the trajectories on the first FR plane
     Z_1, P_fr= find_Z_proj(Z, 0, time)
     print(f"Z_1: {Z_1.shape}")
-    plot_trajectory(Z_1, "Plane of 1st FR")
+    # plot_trajectory(Z_1, "Plane of 1st FR")
 
     # plot the trajectories on the second FR plane
-    Z_2 , _= find_Z_proj(Z, 1, time)
-    plot_trajectory(Z_2, "Plane of 2nd FR")
+    Z_2 , P_fr1= find_Z_proj(Z, 1, time)
+    # plot_trajectory(Z_2, "Plane of 2nd FR")
 
     # plot the trajectories on the third FR plane
-    Z_3, _ = find_Z_proj(Z, 2, time)
-    plot_trajectory(Z_3, "Plane of 3rd FR")
+    Z_3, P_fr2 = find_Z_proj(Z, 2, time)
+    # plot_trajectory(Z_3, "Plane of 3rd FR")
 
-    np.savez('Data/exercise_5.npz', P = P_fr, Z_1 = Z_1, Z_2 = Z_2, Z_3 = Z_3)
+    np.savez('Data/exercise_5.npz', P = [P_fr, P_fr1, P_fr2], Z_1 = Z_1, Z_2 = Z_2, Z_3 = Z_3)
 
 
 if __name__ == "__main__":
