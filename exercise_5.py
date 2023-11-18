@@ -40,11 +40,11 @@ def find_Z_proj(Z, i, time):
 
     Z_proj = Z_proj.reshape(2, ZShape[1], ZShape[2])
 
-    return Z_proj
+    return Z_proj, P
 
 
-def plot_trajectory(Z_proj):
-    colors = cc.get_colors(Z_proj[0, :, 0], Z_proj[1, :, 0])
+def plot_trajectory(Z_proj, alt = False):
+    colors = cc.get_colors(Z_proj[0, :, 0], Z_proj[1, :, 0], alt_colors=alt)
 
     # Plot the trajectories for all conditions in the same plot
     fig, ax = plt.subplots()
@@ -65,16 +65,19 @@ def main():
     time = data["times"]
 
     # plot the trajectories on the first FR plane
-    Z_1 = find_Z_proj(Z, 0, time)
+    Z_1, P_fr= find_Z_proj(Z, 0, time)
+    print(f"Z_1: {Z_1.shape}")
     plot_trajectory(Z_1)
 
     # plot the trajectories on the second FR plane
-    Z_2 = find_Z_proj(Z, 1, time)
+    Z_2 , _= find_Z_proj(Z, 1, time)
     plot_trajectory(Z_2)
 
     # plot the trajectories on the third FR plane
-    Z_3 = find_Z_proj(Z, 2, time)
+    Z_3, _ = find_Z_proj(Z, 2, time)
     plot_trajectory(Z_3)
+
+    np.savez('Data/exercise_5.npz', P = P_fr, Z_1 = Z_1, Z_2 = Z_2, Z_3 = Z_3)
 
 
 if __name__ == "__main__":
